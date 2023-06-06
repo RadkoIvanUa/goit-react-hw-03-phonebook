@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 
+import { StyledList } from './StyledContactList';
+
 export default function ContactList({ FilteredArr, onDeleteContact }) {
   return (
     <>
-      <ul>
+      <StyledList>
         {FilteredArr.map(contact => (
           <li key={contact.id}>
             <p>
@@ -12,7 +14,7 @@ export default function ContactList({ FilteredArr, onDeleteContact }) {
             <button onClick={() => onDeleteContact(contact.id)}>Delete</button>
           </li>
         ))}
-      </ul>
+      </StyledList>
     </>
   );
 }

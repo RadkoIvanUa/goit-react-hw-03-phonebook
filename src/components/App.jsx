@@ -1,19 +1,30 @@
 import { Component } from 'react';
 
 import ContactForm from './contact-form/ContactForm';
-import ContactList from './ContactList';
+import ContactList from './contact-list/ContactList';
 import Filter from './filter/Filter';
+
+import { Container } from './StyledContainer';
 
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const localStorageContactsArr = JSON.parse(
+      localStorage.getItem('contacts')
+    );
+    if (!localStorageContactsArr) {
+      return;
+    }
+    this.setState({ contacts: localStorageContactsArr });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   heandleFilter = evt => {
     this.setState({ filter: evt.currentTarget.value });
@@ -50,16 +61,16 @@ export class App extends Component {
 
   render() {
     return (
-      <>
-        <h2>Phonebook</h2>
+      <Container>
+        <h2 style={{ textAlign: 'center' }}>Phonebook</h2>
         <ContactForm createContactsArr={this.setStateContacts} />
-        <h2>Contacts</h2>
+        <h2 style={{ textAlign: 'center' }}>Contacts</h2>
         <Filter onFilter={this.heandleFilter} filter={this.state.filter} />
         <ContactList
           FilteredArr={this.getFilteredArr()}
           onDeleteContact={this.deleteContact}
         />
-      </>
+      </Container>
     );
   }
 }
