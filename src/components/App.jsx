@@ -24,8 +24,10 @@ export class App extends Component {
     this.setState({ contacts: localStorageContactsArr });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  componentDidUpdate(_, prevState) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
   }
 
   heandleFilter = evt => {
