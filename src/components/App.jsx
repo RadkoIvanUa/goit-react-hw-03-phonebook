@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ContactForm from './contact-form/ContactForm';
 import ContactList from './contact-list/ContactList';
@@ -45,7 +47,7 @@ export class App extends Component {
         contact => contact.name.toLowerCase() === userData.name.toLowerCase()
       )
     ) {
-      alert(`${userData.name} is already in contacts`);
+      toast.info(`${userData.name} is already in contacts`);
       return;
     }
     this.setState(prevState => ({
@@ -70,6 +72,7 @@ export class App extends Component {
           FilteredArr={this.getFilteredArr()}
           onDeleteContact={this.deleteContact}
         />
+        <ToastContainer autoClose={3000} />
       </Container>
     );
   }
