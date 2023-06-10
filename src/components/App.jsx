@@ -37,10 +37,9 @@ export class App extends Component {
   getFilteredArr() {
     const filter = this.state.filter.toLowerCase();
 
-    const filteredArr = this.state.contacts.filter(contact =>
+    return this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter)
     );
-    return filteredArr;
   }
 
   setStateContacts = userData => {
